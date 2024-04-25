@@ -42,187 +42,187 @@ INCLUDE Irvine32.inc
 main PROC
 
 operationScreen:
-	mov edx, OFFSET Menu										;
-	call WriteString											;
-	call Crlf													;
+	mov edx, OFFSET Menu										;Take the values stored in the Menu variable, and put them in the edx register.
+	call WriteString											;Write the string that is stored in the edx register.
+	call Crlf													;Insert a new line.
 
 L1:
-	call ReadChar												;
-	cmp al, '5'													;
-	ja L2														;
-	cmp al, '1'													;
-	jb L2														;
+	call ReadChar												;Read the user's input.
+	cmp al, '5'													;Compare the user's input to 5. This is the max amount of menu options.
+	ja L2														;If the user enters a number greater than 5, Jump to the L2 tag.
+	cmp al, '1'													;Compare the user's input to 1. This is the min amount of menu options.
+	jb L2														;If the user enters a number less than5, Jump to the L2 tag.
 
-	call Crlf													;
-	call ChooseProcedure										;
-	jc quit														;
+	call Crlf													;Insert a new line.
+	call ChooseProcedure										;Call the ChooseProcedure function.
+	jc quit														;Go to the quit tag if the condtions are met.
 
 L2:
-	mov edx, OFFSET ErrorPrompt									;
-	call WriteString											;
-	call Crlf													;
-	jmp OperationScreen											;
+	mov edx, OFFSET ErrorPrompt									;Take the value stored in the ErrorPrompt variable, and put it in the edx register.
+	call WriteString											;Write the string to the screen that is stored in the edx register.
+	call Crlf													;Insert a new line on the screen.
+	jmp OperationScreen											;Jump back to the operationScreen tag.
 
 quit:
-	exit														;
+	exit														;Exit the program.
 
 main ENDP
 
 
 ChooseProcedure PROC
 
-	push ebx													;
-	push ecx													;
+	push ebx													;Push the ebx register to the ChooseProcedure stack.
+	push ecx													;Push the ecx register to the ChooseProcedure stack.
 
-	mov ebx, OFFSET caseTable									;
-	mov ecx, numberOfInputs										;
+	mov ebx, OFFSET caseTable									;Take the value stored in the caseTable variable, and put it into the ebx register.
+	mov ecx, numberOfInputs										;Take the numberOfInputs, and put it into the ecx register.
 
 L1:
-	cmp al, [ebx]												;
-	jne L2														;
-	call NEAR PTR [ebx + 1]										;
-	jmp L3														;
+	cmp al, [ebx]												;Compare the user's choice to the al register.
+	jne L2														;If no, continue.
+	call NEAR PTR [ebx + 1]										;If yes, call the choosen procedure.
+	jmp L3														;Jump to the L3 tag.
 
 L2:
-	add ebx, inputSize											;
-	loop L1														;
+	add ebx, inputSize											;Add the value of the variable inputSize to the value stored in the ebx register.
+	loop L1														;Run the L1 tag again.
 
 L3:
-	pop ecx														;
-	pop ebx														;
-	ret															;
+	pop ecx														;Remove ecx from the ChooseProcedure stack.
+	pop ebx														;Remove ebx from the ChooseProcedure stack.
+	ret															;Return to the main function.
 
 ChooseProcedure ENDP
 
 
 AND_op PROC
 
-	pushad														;
+	pushad														;Push all registers to the stack.
 	
-	mov edx, OFFSET ANDPrompt									;
-	call WriteString											;
-	call Crlf													;
+	mov edx, OFFSET ANDPrompt									;Take the value stored in the ANDPrompt variable, and put it into the edx register.
+	call WriteString											;Write the string that is stored in the edx register.
+	call Crlf													;Insert a new line.
 	
-	mov edx, OFFSET Number1										;
-	call WriteString											;
-	call ReadHex												;
-	mov ebx, eax												;
+	mov edx, OFFSET Number1										;Take the value stored in the Number1 variable, and put it into the edx register.
+	call WriteString											;Write the string that is stored in the edx register.
+	call ReadHex												;Read the user's input
+	mov ebx, eax												;Take what is in the eax register, and put it into the ebx register.
 
-	mov edx, OFFSET Number2										;
-	call WriteString											;
-	call ReadHex												;
+	mov edx, OFFSET Number2										;Take the value stored in the Number2 and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
 
-	and eax, ebx												;
+	and eax, ebx												;Multiply the two numbers that are in the ebx and eax registers.
 
-	mov edx, OFFSET Result										;
-	call WriteString											;
-	call WriteHex												;
-	call Crlf													;
+	mov edx, OFFSET Result										;Take the value stored in the Result variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call WriteHex												;Write the hexidecimal value stored in result to the screen.
+	call Crlf													;Insert a new line.
 
-	popad														;
+	popad														;Remove all the registers from the stack.
 	
-	ret															;
+	ret															;Return to the main function.
 
 AND_op ENDP
 
 
 OR_op PROC
 
-	pushad														;
+	pushad														;Push all registers to the stack.
 
-	mov edx, OFFSET ORPrompt									;
-	call WriteString											;
-	call Crlf													;
+	mov edx, OFFSET ORPrompt									;Take the value stored in the ORPrompt variable, and put it into the edx regsiter.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call Crlf													;Insert a new line.
 
-	mov edx, OFFSET Number1										;
-	call WriteString											;
-	call ReadHex												;
-	mov ebx, eax												;
+	mov edx, OFFSET Number1										;Take the value stored in the Number1 variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
+	mov ebx, eax												;Take what is in the eax register, and put it into the ebx register.
 
-	mov edx, OFFSET Number2										;
-	call WriteString											;
-	call ReadHex												;
+	mov edx, OFFSET Number2										;Take the value stored in the Number2 and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
 
-	or eax, ebx													;
+	or eax, ebx													;Add the two values that are stored in the ebx and eax registers.
 	
-	mov edx, OFFSET Result										;
-	call WriteString											;
-	call WriteHex												;
-	call Crlf													;
+	mov edx, OFFSET Result										;Take the value stored in the Result variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call WriteHex												;Write the hexidecimal value stored in result to the screen.
+	call Crlf													;Insert a new line.
 
-	popad														;
+	popad														;Remove all the registers from the stack.
 
-	ret															;
+	ret															;Return to the main function.
 
 OR_op ENDP
 
 
 NOT_op PROC
 
-	pushad														;
+	pushad														;Push all registers to the stack.
 
-	mov edx, OFFSET NOTPrompt									;
-	call WriteString											;
-	call Crlf													;
+	mov edx, OFFSET NOTPrompt									;Take the value stored in the NOTPrompt variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call Crlf													;Insert a new line.
 
-	mov edx, OFFSET Number1										;
-	call WriteString											;
-	call ReadHex												;
-	mov ebx, eax												;
+	mov edx, OFFSET Number1										;Take the value stored in the Number1 variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
+	mov ebx, eax												;Take what is in the eax register, and put it into the ebx register.
 
-	mov edx, OFFSET Number2										;
-	call WriteString											;
-	call ReadHex												;
+	mov edx, OFFSET Number2										;Take the value stored in the Number2 and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
 
-	not eax														;
+	not eax														;Invert each bit stored in the eax register.
 
-	mov edx, OFFSET Result										;
-	call WriteString											;
-	call WriteHex												;
-	call Crlf													;
+	mov edx, OFFSET Result										;Take the value stored in the Result variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call WriteHex												;Write the hexidecimal value stored in result to the screen.
+	call Crlf													;Insert a new line.
 
-	popad														;
+	popad														;Remove all the registers from the stack.
 
-	ret															;
+	ret															;Return to the main function.
 
 NOT_op ENDP
 
 
 XOR_op PROC
 
-	pushad														;
+	pushad														;Push all registers to the stack.
 
-	mov edx, OFFSET XORPrompt									;
-	call WriteString											;
-	call Crlf													;
+	mov edx, OFFSET XORPrompt									;Take the value stored in the XORPrompt variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call Crlf													;Insert a new line.
 
-	mov edx, OFFSET Number1										;
-	call WriteString											;
-	call ReadHex												;
-	mov ebx, eax												;
+	mov edx, OFFSET Number1										;Take the value stored in the Number1 variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
+	mov ebx, eax												;Take what is in the eax register, and put it into the ebx register.
 
-	mov edx, OFFSET Number2										;
-	call WriteString											;
-	call ReadHex												;
+	mov edx, OFFSET Number2										;Take the value stored in the Number2 and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call ReadHex												;Read the user's input.
 
-	xor eax, ebx												;
+	xor eax, ebx												;Compare the two values that are stored in the ebx and eax registers.
 
-	mov edx, OFFSET Result										;
-	call WriteString											;
-	call WriteHex												;
-	call Crlf													;
+	mov edx, OFFSET Result										;Take the value stored in the Result variable, and put it into the edx register.
+	call WriteString											;Write the current string that is stored in the edx register.
+	call WriteHex												;Write the hexidecimal value stored in result to the screen.
+	call Crlf													;Insert a new line.
 
-	popad														;
+	popad														;Remove all the registers from the stack.
 
-	ret															;
+	ret															;Return to the main function.
 
 XOR_op ENDP
 
 
 ExitProgram PROC
 
-	stc															;
-	ret															;
+	stc															;Set the carry flag to 1.
+	ret															;Return to the main function.
 
 ExitProgram ENDP
 

@@ -98,6 +98,7 @@ ChooseProcedure ENDP
 AND_op PROC
 
 	pushad
+
 	mov edx, OFFSET ANDPrompt
 	call WriteString
 	call Crlf
@@ -119,24 +120,103 @@ AND_op PROC
 	call Crlf
 
 	popad
+
 	ret
 
 AND_op ENDP
 
 
-AND_or PROC
+OR_op PROC
 
-AND_or ENDP
+	pushad
+
+	mov edx, OFFSET ORPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET Number1
+	call WriteString
+	call ReadHex
+	mov ebx, eax
+
+	mov edx, OFFSET Number2
+	call WriteString
+	call ReadHex
+
+	or eax, ebx
+
+	mov edx, OFFSET Result
+	call WriteString
+	call WriteHex
+	call Crlf
+
+	popad
+
+	ret
+
+OR_op ENDP
 
 
-AND_not PROC
+NOT_op PROC
 
-AND_not ENDP
+	pushad
+
+	mov edx, OFFSET NOTPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET Number1
+	call WriteString
+	call ReadHex
+	mov ebx, eax
+
+	mov edx, OFFSET Number2
+	call WriteString
+	call ReadHex
+
+	not eax, ebx
+
+	mov edx, OFFSET Result
+	call WriteString
+	call WriteHex
+	call Crlf
+
+	popad
+
+	ret
+
+NOT_op ENDP
 
 
-AND_xor PROC
+XOR_op PROC
 
-AND_xor ENDP
+	pushad
+
+	mov edx, OFFSET XORPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET Number1
+	call WriteString
+	call ReadHex
+	mov ebx, eax
+
+	mov edx, OFFSET Number2
+	call WriteString
+	call ReadHex
+
+	xor eax, ebx
+
+	mov edx, OFFSET Result
+	call WriteString
+	call WriteHex
+	call Crlf
+
+	popad
+
+	ret
+
+XOR_op ENDP
 
 
 ExitProgram PROC

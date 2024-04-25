@@ -18,9 +18,25 @@ INCLUDE Irvine32.inc
 	XORPrompt BYTE "Boolean XOR", 0
 	ErrorPrompt BYTE "Please input a valid number", 0
 
-	Number1 "Enter the first 32-bit integer", 0
-	Number2 "Enter the second 32-bit integer", 0
-	Result "The result is", 0
+	Number1 BYTE "Enter the first 32-bit integer", 0
+	Number2 BYTE "Enter the second 32-bit integer", 0
+	Result BYTE "The result is", 0
+
+	caseTable BYTE "1"
+		DWORD And_op
+
+	inputSize = ($ - caseTable)
+		BYTE '2'
+		DWORD OR_op
+		BYTE '3'
+		DWORD NOT_op
+		BYTE '4'
+		DWORD XOR_op
+		BYTE '5'
+		DWORD ExitProgram
+
+	numberOfInputs = ($ - caseTable) / inputSize
+
 .code
 
 main PROC

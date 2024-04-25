@@ -73,7 +73,26 @@ main ENDP
 
 ChooseProcedure PROC
 
-	
+	push ebx
+	push ecx
+
+	mov ebx, OFFSET caseTable
+	mov ecx, numberOfInputs
+
+L1:
+	cmp al, [ebx]
+	jne L2
+	call NEAR PTR [ebx + 1]
+	jmp L3
+
+L2:
+	add ebx, inputSize
+	loop L1
+
+L3:
+	pop ecx
+	pop ebx
+	ret
 
 ChooseProcedure ENDP
 

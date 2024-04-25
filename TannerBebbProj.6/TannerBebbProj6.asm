@@ -18,6 +18,9 @@ INCLUDE Irvine32.inc
 	XORPrompt BYTE "Boolean XOR", 0
 	ErrorPrompt BYTE "Please input a valid number", 0
 
+	Number1 "Enter the first 32-bit integer", 0
+	Number2 "Enter the second 32-bit integer", 0
+	Result "The result is", 0
 .code
 
 main PROC

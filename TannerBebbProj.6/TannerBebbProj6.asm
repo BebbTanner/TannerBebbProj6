@@ -42,187 +42,187 @@ INCLUDE Irvine32.inc
 main PROC
 
 operationScreen:
-	mov edx, OFFSET Menu
-	call WriteString
-	call Crlf
+	mov edx, OFFSET Menu										;
+	call WriteString											;
+	call Crlf													;
 
 L1:
-	call ReadChar
-	cmp al, '5'
-	ja L2
-	cmp al, '1'
-	jb L2
+	call ReadChar												;
+	cmp al, '5'													;
+	ja L2														;
+	cmp al, '1'													;
+	jb L2														;
 
-	call Crlf
-	call ChooseProcedure
-	jc quit
+	call Crlf													;
+	call ChooseProcedure										;
+	jc quit														;
 
 L2:
-	mov edx, OFFSET ErrorPrompt
-	call WriteString
-	call Crlf
-	jmp OperationScreen
+	mov edx, OFFSET ErrorPrompt									;
+	call WriteString											;
+	call Crlf													;
+	jmp OperationScreen											;
 
 quit:
-	exit
+	exit														;
 
 main ENDP
 
 
 ChooseProcedure PROC
 
-	push ebx
-	push ecx
+	push ebx													;
+	push ecx													;
 
-	mov ebx, OFFSET caseTable
-	mov ecx, numberOfInputs
+	mov ebx, OFFSET caseTable									;
+	mov ecx, numberOfInputs										;
 
 L1:
-	cmp al, [ebx]
-	jne L2
-	call NEAR PTR [ebx + 1]
-	jmp L3
+	cmp al, [ebx]												;
+	jne L2														;
+	call NEAR PTR [ebx + 1]										;
+	jmp L3														;
 
 L2:
-	add ebx, inputSize
-	loop L1
+	add ebx, inputSize											;
+	loop L1														;
 
 L3:
-	pop ecx
-	pop ebx
-	ret
+	pop ecx														;
+	pop ebx														;
+	ret															;
 
 ChooseProcedure ENDP
 
 
 AND_op PROC
 
-	pushad
+	pushad														;
+	
+	mov edx, OFFSET ANDPrompt									;
+	call WriteString											;
+	call Crlf													;
+	
+	mov edx, OFFSET Number1										;
+	call WriteString											;
+	call ReadHex												;
+	mov ebx, eax												;
 
-	mov edx, OFFSET ANDPrompt
-	call WriteString
-	call Crlf
+	mov edx, OFFSET Number2										;
+	call WriteString											;
+	call ReadHex												;
 
-	mov edx, OFFSET Number1
-	call WriteString
-	call ReadHex
-	mov ebx, eax
+	and eax, ebx												;
 
-	mov edx, OFFSET Number2
-	call WriteString
-	call ReadHex
+	mov edx, OFFSET Result										;
+	call WriteString											;
+	call WriteHex												;
+	call Crlf													;
 
-	and eax, ebx
-
-	mov edx, OFFSET Result
-	call WriteString
-	call WriteHex
-	call Crlf
-
-	popad
-
-	ret
+	popad														;
+	
+	ret															;
 
 AND_op ENDP
 
 
 OR_op PROC
 
-	pushad
+	pushad														;
 
-	mov edx, OFFSET ORPrompt
-	call WriteString
-	call Crlf
+	mov edx, OFFSET ORPrompt									;
+	call WriteString											;
+	call Crlf													;
 
-	mov edx, OFFSET Number1
-	call WriteString
-	call ReadHex
-	mov ebx, eax
+	mov edx, OFFSET Number1										;
+	call WriteString											;
+	call ReadHex												;
+	mov ebx, eax												;
 
-	mov edx, OFFSET Number2
-	call WriteString
-	call ReadHex
+	mov edx, OFFSET Number2										;
+	call WriteString											;
+	call ReadHex												;
 
-	or eax, ebx
+	or eax, ebx													;
+	
+	mov edx, OFFSET Result										;
+	call WriteString											;
+	call WriteHex												;
+	call Crlf													;
 
-	mov edx, OFFSET Result
-	call WriteString
-	call WriteHex
-	call Crlf
+	popad														;
 
-	popad
-
-	ret
+	ret															;
 
 OR_op ENDP
 
 
 NOT_op PROC
 
-	pushad
+	pushad														;
 
-	mov edx, OFFSET NOTPrompt
-	call WriteString
-	call Crlf
+	mov edx, OFFSET NOTPrompt									;
+	call WriteString											;
+	call Crlf													;
 
-	mov edx, OFFSET Number1
-	call WriteString
-	call ReadHex
-	mov ebx, eax
+	mov edx, OFFSET Number1										;
+	call WriteString											;
+	call ReadHex												;
+	mov ebx, eax												;
 
-	mov edx, OFFSET Number2
-	call WriteString
-	call ReadHex
+	mov edx, OFFSET Number2										;
+	call WriteString											;
+	call ReadHex												;
 
-	not eax
+	not eax														;
 
-	mov edx, OFFSET Result
-	call WriteString
-	call WriteHex
-	call Crlf
+	mov edx, OFFSET Result										;
+	call WriteString											;
+	call WriteHex												;
+	call Crlf													;
 
-	popad
+	popad														;
 
-	ret
+	ret															;
 
 NOT_op ENDP
 
 
 XOR_op PROC
 
-	pushad
+	pushad														;
 
-	mov edx, OFFSET XORPrompt
-	call WriteString
-	call Crlf
+	mov edx, OFFSET XORPrompt									;
+	call WriteString											;
+	call Crlf													;
 
-	mov edx, OFFSET Number1
-	call WriteString
-	call ReadHex
-	mov ebx, eax
+	mov edx, OFFSET Number1										;
+	call WriteString											;
+	call ReadHex												;
+	mov ebx, eax												;
 
-	mov edx, OFFSET Number2
-	call WriteString
-	call ReadHex
+	mov edx, OFFSET Number2										;
+	call WriteString											;
+	call ReadHex												;
 
-	xor eax, ebx
+	xor eax, ebx												;
 
-	mov edx, OFFSET Result
-	call WriteString
-	call WriteHex
-	call Crlf
+	mov edx, OFFSET Result										;
+	call WriteString											;
+	call WriteHex												;
+	call Crlf													;
 
-	popad
+	popad														;
 
-	ret
+	ret															;
 
 XOR_op ENDP
 
 
 ExitProgram PROC
 
-	stc
-	ret
+	stc															;
+	ret															;
 
 ExitProgram ENDP
 

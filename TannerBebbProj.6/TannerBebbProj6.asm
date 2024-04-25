@@ -48,8 +48,33 @@ operationScreen:
 	call WriteString
 	call Clrscr
 
+L1:
+	call ReadChar
+	cmp al, 5
+	ja L2
+	cmp al, 1
+	jb L2
+
+	call Clrscr
+	call ChooseProcedure
+	jc quit
+
+L2:
+	mov edx, OFFSET ErrorPrompt
+	call WriteString
+	call Clrscr
+	jmp OperationScreen
+
+quit:
 	exit
 
 main ENDP
+
+
+ChooseProcedure PROC
+
+	
+
+ChooseProcedure ENDP
 
 END main

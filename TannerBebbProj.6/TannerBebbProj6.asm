@@ -40,13 +40,11 @@ INCLUDE Irvine32.inc
 .code
 
 main PROC
-	
-	call Clrscr
 
 operationScreen:
 	mov edx, OFFSET Menu
 	call WriteString
-	call Clrscr
+	call Crlf
 
 L1:
 	call ReadChar
@@ -55,14 +53,14 @@ L1:
 	cmp al, 1
 	jb L2
 
-	call Clrscr
+	call Crlf
 	call ChooseProcedure
 	jc quit
 
 L2:
 	mov edx, OFFSET ErrorPrompt
 	call WriteString
-	call Clrscr
+	call Crlf
 	jmp OperationScreen
 
 quit:
@@ -95,5 +93,54 @@ L3:
 	ret
 
 ChooseProcedure ENDP
+
+
+AND_op PROC
+
+	pushad
+	mov edx, OFFSET ANDPrompt
+	call WriteString
+	call Crlf
+
+	mov edx, OFFSET Number1
+	call WriteString
+	call ReadHex
+	mov ebx, eax
+
+	mov edx, OFFSET Number2
+	call WriteString
+	call ReadHex
+
+	and eax, ebx
+
+	mov edx, OFFSET Result
+	call WriteString
+	call WriteHex
+	call Crlf
+
+	popad
+	ret
+
+AND_op ENDP
+
+
+AND_or PROC
+
+AND_or ENDP
+
+
+AND_not PROC
+
+AND_not ENDP
+
+
+AND_xor PROC
+
+AND_xor ENDP
+
+
+ExitProgram PROC
+
+ExitProgram ENDP
 
 END main

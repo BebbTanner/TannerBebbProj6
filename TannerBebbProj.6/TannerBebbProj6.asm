@@ -40,6 +40,13 @@ INCLUDE Irvine32.inc
 .code
 
 main PROC
+	
+	call Clrscr
+
+operationScreen:
+	mov edx, OFFSET Menu
+	call WriteString
+	call Clrscr
 
 	exit
 
